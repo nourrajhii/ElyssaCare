@@ -1,0 +1,77 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Dashboard  - {% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center"> Dashboard </h1>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3>User Statistics</h3>
+
+            {% set total_users = percentages['ROLE_MEDECIN'] + percentages['ROLE_PATIENT'] + percentages['ROLE_PHARMACIEN'] %}
+
+            <div class="progress mb-3">
+                <div class="progress-bar bg-primary" role="progressbar" 
+                     style="width: {{ percentages['ROLE_MEDECIN'] ?? 0 }}%;" 
+                     aria-valuenow="{{ percentages['ROLE_MEDECIN'] ?? 0 }}" 
+                     aria-valuemin="0" aria-valuemax="100">
+                    Médecins - {{ percentages['ROLE_MEDECIN']|default(0)|number_format(2) }}%
+                </div>
+            </div>
+
+            <div class="progress mb-3">
+                <div class="progress-bar bg-success" role="progressbar" 
+                     style="width: {{ percentages['ROLE_PATIENT'] ?? 0 }}%;" 
+                     aria-valuenow="{{ percentages['ROLE_PATIENT'] ?? 0 }}" 
+                     aria-valuemin="0" aria-valuemax="100">
+                    Patients - {{ percentages['ROLE_PATIENT']|default(0)|number_format(2) }}%
+                </div>
+            </div>
+
+            <div class="progress mb-3">
+                <div class="progress-bar bg-warning" role="progressbar" 
+                     style="width: {{ percentages['ROLE_PHARMACIEN'] ?? 0 }}%;" 
+                     aria-valuenow="{{ percentages['ROLE_PHARMACIEN'] ?? 0 }}" 
+                     aria-valuemin="0" aria-valuemax="100">
+                    Pharmaciens - {{ percentages['ROLE_PHARMACIEN']|default(0)|number_format(2) }}%
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Distribution Of Users</h3>
+            <canvas id="roleChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('roleChart').getContext('2d');
+    var roleChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Médecins', 'Patients', 'Pharmaciens'],
+            datasets: [{
+                data: [
+                    {{ percentages['ROLE_MEDECIN'] ?? 0 }},
+                    {{ percentages['ROLE_PATIENT'] ?? 0 }},
+                    {{ percentages['ROLE_PHARMACIEN'] ?? 0 }}
+                ],
+                backgroundColor: ['#007bff', '#28a745', '#ffc107'],
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
