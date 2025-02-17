@@ -1,0 +1,87 @@
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="login-container">
+            <!-- Form Section -->
+            <div class="form-container">
+                <h1 class="text-center">Reset Your Password</h1>
+
+                {% for flash_error in app.flashes('reset_password_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
+
+                {{ form_start(resetForm) }}
+                    <!-- Password input with icon -->
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                        {{ form_widget(resetForm.password, { 'attr': {'class': 'form-control', 'placeholder': 'New Password'} }) }}
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-custom w-100">
+                        <i class="bi bi-key-fill"></i> Reset Password
+                    </button>
+                {{ form_end(resetForm) }}
+
+                <div class="text-center mt-3">
+                    <a href="{{ path('app_login') }}" class="text-primary">
+                        <i class="bi bi-arrow-left-circle-fill"></i> Back to Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            background-color: #f0f8ff; /* Bleu ciel */
+        }
+        .login-container {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            background: url('front/img/back.jpg') no-repeat center center / cover; /* Image en arrière-plan */
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .form-container {
+            flex: 1;
+            padding-right: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent pour lisibilité */
+            border-radius: 10px;
+            padding: 30px;
+        }
+        .input-group-text {
+            background: transparent;
+            border: none;
+        }
+        .btn-custom {
+            background-color: #00aaff;
+            color: white;
+            font-size: 1rem; /* Taille du texte du bouton */
+            padding: 10px; /* Réduire la taille du bouton */
+        }
+        .btn-custom:hover {
+            background-color: #0088cc;
+        }
+        .text-primary {
+            color: #007bff !important;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        label, .form-control {
+            font-size: 1.2rem; /* Taille des labels et des champs de texte */
+        }
+        small {
+            font-size: 1rem; /* Taille du texte explicatif */
+        }
+    </style>
+{% endblock %}

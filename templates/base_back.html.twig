@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="{{asset('/Dashboard/vendors/css/vendor.bundle.base.css')}}">
     <link rel="stylesheet" href="{{asset('/Dashboard/vendors/font-awesome/css/font-awesome.min.css')}}">
    
+<<<<<<< HEAD
+=======
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
 
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{asset('/Dashboard/vendors/jquery-bar-rating/css-stars.css')}}">
@@ -97,6 +102,12 @@
             <a class="nav-link" href="index.html">
               <i class="mdi mdi-compass-outline menu-icon"></i>
               <span class="menu-title">HomePage</span>
+<<<<<<< HEAD
+=======
+            <a class="nav-link" href="show.html.twig">
+              <i class="mdi mdi-compass-outline menu-icon"></i>
+              <span class="menu-title">Home</span>
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
               
             </a>
             
@@ -136,8 +147,13 @@
             </a>
             <div class="collapse" id="forms">
               <ul class="nav flex-column sub-menu">
+<<<<<<< HEAD
                 <li class="nav-item"> <a class="nav-link" href="{{path('app_events_index')}}">events</a></li>
                  <li class="nav-item"> <a class="nav-link" href="{{path('app_sponsor_index')}}">sponsor</a></li>
+=======
+               
+                <li class="nav-item"> <a class="nav-link" href="{{path('app_events')}}">events</a></li>
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
               </ul>
             </div>
           </li>
@@ -149,6 +165,17 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
+<<<<<<< HEAD
+=======
+              
+                <li class="nav-item"> <a class="nav-link" href="{{ path('app_blog_index') }}">Blogs</a></li>
+              </ul>
+            </div>
+              <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+              
+                <li class="nav-item"> <a class="nav-link" href="{{ path('app_commentaire_index') }}">commentaires</a></li>
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
                 <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
               </ul>
             </div>
@@ -170,6 +197,16 @@
               </ul>
             </div>
           </li>
+<<<<<<< HEAD
+=======
+    <a class="nav-link" href="{{ path('app_user_index') }}" aria-expanded="false" aria-controls="auth">
+        <i class="mdi mdi-lock menu-icon"></i>
+        <span class="menu-title">Users</span>
+        <i class="menu-arrow"></i>
+    </a>
+</li>
+
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
           
         </ul>
       </nav>
@@ -300,6 +337,29 @@
               <li class="nav-item nav-logout d-none d-lg-block">
                 <a class="nav-link" href="index.html">
                   <i class="mdi mdi-home-circle"></i>
+<<<<<<< HEAD
+=======
+             
+              <li class="nav-item nav-logout d-none d-lg-block">
+    {% if app.user %}
+    <a href="{{ path('app_user_profile', {'id': app.user.id}) }}">
+        <i class="fas fa-user-circle"></i> Profil
+    </a>
+    <a href="{{ path('app_logout') }}">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+ 
+{% else %}
+    <a href="{{ path('app_login') }}">
+        <i class="fas fa-sign-in-alt"></i> Connexion
+    </a>
+{% endif %}
+
+</li>
+
+
+                  
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
                 </a>
               </li>
             </ul>
@@ -334,7 +394,11 @@
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
+<<<<<<< HEAD
               <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center"> <i class="mdi mdi-heart text-danger"></i></span>
+=======
+              <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
             </div>
           </footer>
           <!-- partial -->

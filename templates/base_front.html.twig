@@ -88,8 +88,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
+<<<<<<< HEAD
                         <a href="index.html" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
+=======
+                        <a href="index.html.twig" class="nav-item nav-link active">Home</a>
+                        
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
                         <div class="nav-item dropdown">
                           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Consultation</a>
                           <div class="dropdown-menu m-0">
@@ -99,6 +104,7 @@
                           </div>
                         </div>
                   
+<<<<<<< HEAD
                        <div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Events</a>
     <div class="dropdown-menu m-0">
@@ -110,11 +116,26 @@
        
     </div>
 </div>
+=======
+                        <div class="nav-item dropdown">
+                          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Events</a>
+                          <div class="dropdown-menu m-0">
+                              <a href="blog.html" class="dropdown-item">Events</a>
+                              <a href="detail.html" class="dropdown-item">Events</a>
+                              
+                          </div>
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
                       </div>
 
                       <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
                             <div class="dropdown-menu m-0">
+<<<<<<< HEAD
+=======
+                              <li class="nav-item"> <a class="nav-link" href="{{ path('app_front_blog') }}">Blogs</a></li>
+                                
+                                <li class="nav-item"> <a class="nav-link" href="{{ path('app_front_coment') }}">commentaire</a></li>
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
                                 <a href="blog.html" class="dropdown-item">Blog Grid</a>
                                 <a href="detail.html" class="dropdown-item">Blog Detail</a>
                                 
@@ -128,6 +149,29 @@
                               
                           </div>
                        </div>
+<<<<<<< HEAD
+=======
+                          
+                       </div>
+                      <div class="nav-item dropdown">
+    {% if app.user %}
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profil</a>
+        <div class="dropdown-menu">
+            <a href="{{ path('app_user_profile', {'id': app.user.id}) }}" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> Mon Profil
+            </a>
+            <a href="{{ path('app_logout') }}" class="dropdown-item">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </a>
+        </div>
+    {% else %}
+        <a href="{{ path('app_login') }}" class="nav-link">
+            <i class="fas fa-sign-in-alt"></i> Connexion
+        </a>
+    {% endif %}
+</div>
+
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
                         
                     </div>
                 </div>

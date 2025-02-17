@@ -1,0 +1,78 @@
+
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="login-container">
+            <!-- Form Section -->
+            <div class="form-container">
+                <h1 class="text-center">Password Reset Email Sent</h1>
+
+                <p>
+                    If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+                    This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+                </p>
+                <p>
+                    If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.
+                </p>
+                
+                <div class="text-center mt-3">
+                    <a href="{{ path('app_login') }}" class="text-primary">
+                        <i class="bi bi-arrow-left-circle-fill"></i> Back to Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            background-color: #f0f8ff; /* Bleu ciel */
+        }
+        .login-container {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            background: url('front/img/back.jpg') no-repeat center center / cover;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .form-container {
+            flex: 1;
+            padding-right: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent pour lisibilité */
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px; /* Limite la largeur du cadre */
+            margin: auto;
+        }
+        .btn-custom {
+            background-color: #00aaff;
+            color: white;
+            font-size: 1rem;
+            padding: 10px;
+        }
+        .btn-custom:hover {
+            background-color: #0088cc;
+        }
+        .text-primary {
+            color: #007bff !important;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        label, .form-control {
+            font-size: 1.2rem;
+        }
+        small {
+            font-size: 1rem;
+        }
+    </style>
+{% endblock %}

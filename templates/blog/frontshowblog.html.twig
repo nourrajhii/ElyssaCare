@@ -1,0 +1,56 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Détails du Blog{% endblock %}
+
+{% block body %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-sm" style="width: 60%;">
+        {% if blog.image %}
+            <img class="card-img-top" src="{{ asset('uploads/blog_images/' ~ blog.image) }}" alt="Image du Blog">
+        {% else %}
+            <img class="card-img-top" src="{{ asset('uploads/blog_images/default.jpg') }}" alt="Image par défaut">
+        {% endif %}
+        
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ blog.titre }}</h5>
+            <hr>
+            <p class="card-text"><strong>📝 Contenu :</strong> {{ blog.contenu }}</p>
+            <p class="card-text"><strong>📅 Date de publication :</strong> 
+                {{ blog.datePublication ? blog.datePublication|date('d/m/Y H:i') : 'Non précisée' }}
+            </p>
+            <p class="card-text"><strong>👤 Auteur :</strong> {{ blog.auteur }}</p>
+            
+            <!-- Bouton pour ajouter un commentaire -->
+            <div class="text-center mt-3">
+                <a href="{{ path('app_commentaire_new', {'blogId': blog.id}) }}" class="btn btn-success">
+                    💬 Ajouter un commentaire
+                </a>
+            </div>
+
+            <!-- Section pour afficher les commentaires du blog -->
+            <div class="mt-4">
+                <h5>🗨 Commentaires :</h5>
+                {% if blog.commentaires is empty %}
+                    <p>Aucun commentaire pour ce blog.</p>
+                {% else %}
+                    <ul class="list-group">
+                        {% for commentaire in blog.commentaires %}
+                            <li class="list-group-item">
+                                <strong>{{ commentaire.nomutilisateur }}</strong> 
+                                ({{ commentaire.date ? commentaire.date|date('d/m/Y H:i') : 'Date inconnue' }}) :
+                                <p>{{ commentaire.contenu }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="{{ path('app_front_blog') }}" class="btn btn-primary">
+                    ⬅ Retour à la liste des blogs
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
