@@ -1,0 +1,97 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Détails du Médicament{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Image du médicament -->
+        <div class="col-md-6 text-center">
+            {% if medicament.image %}
+                <img id="mainImage" src="{{ asset('uploads/medicaments/' ~ medicament.image) }}" 
+                     alt="{{ medicament.nom }}" 
+                     class="img-fluid rounded shadow-sm zoom-effect" style="max-width: 80%;">
+                <div class="mt-2">
+                    <img src="{{ asset('uploads/medicaments/' ~ medicament.image) }}" 
+                         class="img-thumbnail small-thumbnail" onclick="changeImage(this)">
+                </div>
+            {% else %}
+                <p class="text-muted">🚫 Aucune image disponible</p>
+            {% endif %}
+        </div>
+
+        <!-- Détails du médicament -->
+        <div class="col-md-6">
+            <h2 class="fw-bold">{{ medicament.nom }}</h2>
+            <p class="text-muted">SKU : {{ medicament.id }}</p>
+            <h4 class="text-danger" id="prix">{{ medicament.Prix }} €</h4>
+            
+            <div class="my-3">
+                <label for="quantite" class="fw-bold">Quantité</label>
+                <input type="number" id="quantite" class="form-control w-50" value="1" min="1" 
+                       oninput="updateTotalPrice({{ medicament.Prix }})">
+            </div>
+
+            <button class="btn btn-dark w-100 py-2 btn-hover" onclick="ajouterAuPanier()">Ajouter au panier</button>
+
+            <div class="mt-4 scrollable-details">
+                <h5>Infos du médicament</h5>
+                <p>{{ medicament.description }}</p>
+                <p><strong>Classe :</strong> {{ medicament.Classe }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles personnalisés -->
+<style>
+body {
+            
+            overflow-y: auto;
+        }
+
+    .zoom-effect {
+        transition: transform 0.3s ease-in-out;
+    }
+    .zoom-effect:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .small-thumbnail {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        cursor: pointer;
+    }
+    .scrollable-details {
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+    .btn-hover {
+        transition: background 0.3s, transform 0.2s;
+    }
+    .btn-hover:hover {
+        background: #333;
+        transform: scale(1.05);
+    }
+</style>
+
+<!-- Scripts -->
+<script>
+    function updateTotalPrice(prix) {
+        let quantite = document.getElementById("quantite").value;
+        let total = prix * quantite;
+        document.getElementById("prix").innerText = total.toFixed(2) + " €";
+    }
+
+    function changeImage(img) {
+        document.getElementById("mainImage").src = img.src;
+    }
+
+    function ajouterAuPanier() {
+        alert("Produit ajouté au panier !");
+    }
+</script>
+
+{% endblock %}

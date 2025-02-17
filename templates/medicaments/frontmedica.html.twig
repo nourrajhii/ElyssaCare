@@ -1,0 +1,114 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Gestion des Médicaments{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .content-container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .top-bar {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        #search {
+            transition: all 0.3s ease-in-out;
+            max-width: 300px;
+        }
+        #search:focus {
+            width: 50%;
+        }
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: scale(1.07);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card img {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-container i {
+            position: absolute;
+            left: 10px;
+            color: gray;
+        }
+        .search-container input {
+            padding-left: 30px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="content-container w-100">
+        <div class="top-bar d-flex justify-content-between align-items-center p-3 bg-primary text-white rounded">
+            <h1 class="m-0">Gestion des Médicaments</h1>
+            <div class="search-container">
+                <i class="bi bi-search"></i>
+                <input type="text" id="search" class="form-control shadow-sm" placeholder="Rechercher...">
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row" id="medicamentList">
+                {% for medicament in medicaments %}
+                    <div class="col-md-4 col-sm-6 mb-4 medicament-item">
+                      <a href="{{ path('app_show_front', {'id': medicament.id}) }}" class="text-decoration-none">
+                            <div class="card shadow-sm text-center">
+                                {% if medicament.image %}
+                                    <img src="{{ asset('uploads/medicaments/' ~ medicament.image) }}" alt="Image de {{ medicament.nom }}" class="img-fluid">
+                                {% else %}
+                                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                        <span class="text-muted">Pas d'image</span>
+                                    </div>
+                                {% endif %}
+                                <div class="p-3">
+                                    <h5 class="text-dark">{{ medicament.nom }}</h5>
+                                    <p class="text-muted">{{ medicament.description }}</p>
+                                    <p><strong>Classe:</strong> {{ medicament.classe }}</p>
+                                    <p><strong>Prix:</strong> {{ medicament.prix|number_format(2, ',', ' ') }} €</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="text-center text-muted fw-bold">Aucun médicament disponible</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("search").addEventListener("keyup", function() {
+            let filter = this.value.toLowerCase();
+            let items = document.querySelectorAll(".medicament-item");
+
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                item.style.display = text.includes(filter) ? "block" : "none";
+            });
+        });
+    </script>
+{% endblock %}

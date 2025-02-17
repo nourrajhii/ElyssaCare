@@ -1,0 +1,97 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Détails du Médicament{% endblock %}
+
+{% block body %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg animated-card" style="width: 50%; max-height: 85vh; overflow-y: auto; border-left: 5px solid #06668C;">
+        <div class="card-header text-white d-flex justify-content-between align-items-center" style="background-color: #06668C;">
+            <a href="{{ path('app_medicaments_index') }}" class="btn btn-outline-light btn-sm">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+            <h2 class="mb-0 text-center flex-grow-1">🩺 Détails du Médicament</h2>
+        </div>
+
+        <div class="card-body text-center">
+          
+
+            <table class="table table-bordered table-hover mt-4">
+                <tbody>
+                    <tr>
+                        <th><i class="fas fa-id-card"></i> ID</th>
+                        <td>{{ panier.id }}</td>
+                    </tr>
+                    <tr>
+                        <th><i class="fas fa-pills"></i> Nom</th>
+                        <td>{{ panier.nomArticle }}</td>
+                    </tr>
+                    
+                      <tr>
+                        <th><i class="fas fa-pills"></i> quantite</th>
+                        <td>{{ panier.quantite }}</td>
+                    </tr>
+                    <tr>
+                        <th><i class="fas fa-euro-sign"></i> Prix</th>
+                        <td><span class="badge bg-danger">{{ panier.Prix }} €</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer d-flex justify-content-center gap-3">
+            <a href="{{ path('app_medicaments_edit', {'id': panier.id}) }}" class="btn btn-lg text-white" style="background-color: #F00E0E;">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            {{ include('medicaments/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+
+<!-- Ajout du style CSS pour le design et les animations -->
+<style>
+    /* Animation de la carte */
+    .animated-card {
+        animation: fadeIn 0.8s ease-in-out;
+        border-radius: 15px;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Effet de zoom sur l'image */
+    .zoom-effect {
+        transition: transform 0.3s ease-in-out;
+        max-height: 200px;
+        border-radius: 10px;
+    }
+    .zoom-effect:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Style du tableau neutre */
+    .table th, .table td {
+        text-align: center;
+    }
+    .table th {
+        font-weight: bold;
+    }
+
+    /* Boutons stylés */
+    .btn {
+        transition: all 0.3s ease-in-out;
+    }
+    .btn:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+{% endblock %}

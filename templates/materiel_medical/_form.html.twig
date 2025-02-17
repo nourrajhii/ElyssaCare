@@ -1,0 +1,28 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}, 'method': 'POST'}) }}
+
+    {# Champ d'upload d'image personnalisé #}
+    <div class="form-group">
+        <label for="medicament_image">Image du Médicament</label>
+        <div class="custom-file-upload">
+            {{ form_widget(form.image, {'attr': {'id': 'medicament_image', 'style': 'opacity: 0; position: absolute; width: 1px; height: 1px;'}}) }}
+            <label for="medicament_image" class="upload-label" id="uploadTrigger">
+                <i class="bi bi-upload"></i>
+                <span>Choisir un fichier</span>
+            </label>
+            <span id="file-name">Aucun fichier choisi</span>
+        </div>
+    </div>
+{# Bouton déplacé sous le formulaire #}
+<div style="margin-top: 20px; text-align: center;">
+    <button type="submit" class="btn">{{ button_label|default('Save') }}</button>
+</div>
+
+{{ form_end(form) }}
+
+
+
+
+
+
+
+
