@@ -1,0 +1,100 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Commentaires{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .comment-container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .comment-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            margin-bottom: 20px;
+        }
+        .comment-card:hover {
+            transform: scale(1.03);
+        }
+        .comment-content {
+            padding: 20px;
+        }
+        .comment-actions {
+            border-top: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+        .comment-actions a {
+            margin: 0 10px;
+        }
+        .comment-separator {
+            border-top: 2px solid #ddd;
+            margin: 20px 0;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <div class="comment-container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Commentaires</h5>
+                <h1 class="display-4">Retours des utilisateurs</h1>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <input type="text" id="searchInput" class="form-control w-25" placeholder="🔍 Rechercher...">
+                <a href="{{ path('app_commentaire_new') }}" class="btn btn-success">➕ Ajouter un commentaire</a>
+            </div>
+
+            <div class="comment-separator"></div>
+
+            <div class="row">
+                {% for commentaire in commentaires %}
+                    <div class="col-md-4">
+                        <div class="comment-card shadow-sm">
+                            <div class="comment-content">
+                                <h5 class="text-primary">{{ commentaire.nomUtilisateur }}</h5>
+                                <small class="text-muted">{{ commentaire.date ? commentaire.date|date('Y-m-d H:i') : '' }}</small>
+                                <p class="mt-2">{{ commentaire.contenu|slice(0, 100) ~ '...' }}</p>
+                                <span class="text-warning"><i class="fa fa-thumbs-up"></i> {{ commentaire.nombreLike }}</span>
+                            </div>
+                            <div class="comment-actions bg-light">
+                                <a href="{{ path('app_front_show', {'id': commentaire.id}) }}" class="text-info"><i class="fa fa-eye"></i></a>
+                                <a href="{{ path('app_front_edit', {'id': commentaire.id}) }}" class="text-warning"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="text-danger" onclick="confirmDelete({{ commentaire.id }})"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12 text-center">
+                        <p class="fw-bold">Aucun commentaire trouvé</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let cards = document.querySelectorAll('.comment-card');
+            cards.forEach(card => {
+                let content = card.querySelector('p').textContent.toLowerCase();
+                card.parentElement.style.display = content.includes(filter) ? '' : 'none';
+            });
+        });
+
+        function confirmDelete(commentId) {
+            if (confirm('Voulez-vous vraiment supprimer ce commentaire ?')) {
+                window.location.href = `/commentaire/supprimer/${commentId}`;
+            }
+        }
+    </script>
+{% endblock %}

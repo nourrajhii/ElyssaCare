@@ -1,0 +1,71 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Détails du Blog{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .zoom-effect {
+            transition: transform 0.3s ease-in-out;
+        }
+        .zoom-effect:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-sm" style="width: 60%;">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <a href="{{ path('app_blog_index') }}" class="btn btn-outline-light btn-sm">
+                ⬅ Retour
+            </a>
+            <h2 class="mb-0 text-center flex-grow-1">📖 Détails du Blog</h2>
+        </div>
+        
+        <div class="card-body text-center">
+            {% if blog.image %}
+                <img src="{{ asset('uploads/blog_images/' ~ blog.image) }}" 
+                     class="img-fluid rounded mb-3 zoom-effect" 
+                     style="max-width: 300px; height: auto;" 
+                     alt="Image du blog">
+            {% else %}
+                <p class="text-muted">Aucune image disponible</p>
+            {% endif %}
+
+            <table class="table table-bordered table-sm mt-3">
+                <tbody>
+                    <tr>
+                        <th class="text-muted">🆔 ID</th>
+                        <td>{{ blog.id }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted">📌 Titre</th>
+                        <td>{{ blog.titre }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted">✍ Contenu</th>
+                        <td>{{ blog.contenu }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted">📅 Date de publication</th>
+                        <td>{{ blog.datePublication ? blog.datePublication|date('d/m/Y H:i') : 'Non précisée' }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted">👤 Auteur</th>
+                        <td>{{ blog.auteur }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer text-center">
+            <a href="{{ path('app_blog_edit', {'id': blog.id}) }}" class="btn btn-warning btn-sm mx-2">
+                ✏ Modifier
+            </a>
+            {{ include('blog/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+{% endblock %}

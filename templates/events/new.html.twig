@@ -1,0 +1,100 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Ajouter un événement{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="datetime-local"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #42A5F5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1E88E5;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Ajouter un événement</h1>
+
+        <!-- Form for creating a new event -->
+        {{ form_start(form) }}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ form_label(field) }}
+                    {% if field.vars.required %}
+                        <span class="required">*</span>
+                    {% endif %}
+                    {{ form_widget(field, { 'attr': {'class': 'form-control'} }) }}
+                    
+                    {% if field.vars.errors|length > 0 %}
+                        <div class="error-message">
+                        <div class="text-danger" style="font-size: 14px; margin-top: 5px;">
+                            {{ form_errors(field) }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+           <button class="btn btn-primary btn-lg shadow rounded-pill px-4 py-2">
+    {{ button_label|default('Créer') }}
+</button>
+{{ form_end(form) }}
+        
+        <a href="{{ path('app_events_index') }}">⬅ Retour à la liste</a>
+    </div>
+{% endblock %}

@@ -88,8 +88,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
+<<<<<<< HEAD
                         <a href="index.html" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
+=======
+<<<<<<< HEAD
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+=======
+                        <a href="index.html.twig" class="nav-item nav-link active">Home</a>
+                        
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
+>>>>>>> 1d8c7f2fa47416633189c82d9f37c17437aae32e
                         <div class="nav-item dropdown">
                           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Consultation</a>
                           <div class="dropdown-menu m-0">
@@ -99,6 +109,22 @@
                           </div>
                         </div>
                   
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                       <div class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Events</a>
+    <div class="dropdown-menu m-0">
+        <!-- Lien vers la route "app_eventes" qui générera l'URL "/eventes" -->
+        <a href="{{ path('app_eventes') }}" class="dropdown-item">Events</a>
+        <a href="{{ path('app_sponsore') }}" class="dropdown-item">sponsoring</a>
+        
+        <!-- Vérifiez que la route "app_events_show" existe sinon commentez ou créez la route -->
+       
+    </div>
+</div>
+=======
+>>>>>>> 1d8c7f2fa47416633189c82d9f37c17437aae32e
                         <div class="nav-item dropdown">
                           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Events</a>
                           <div class="dropdown-menu m-0">
@@ -106,11 +132,24 @@
                               <a href="detail.html" class="dropdown-item">Events</a>
                               
                           </div>
+<<<<<<< HEAD
+=======
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
+>>>>>>> 1d8c7f2fa47416633189c82d9f37c17437aae32e
                       </div>
 
                       <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
                             <div class="dropdown-menu m-0">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+                              <li class="nav-item"> <a class="nav-link" href="{{ path('app_front_blog') }}">Blogs</a></li>
+                                
+                                <li class="nav-item"> <a class="nav-link" href="{{ path('app_front_coment') }}">commentaire</a></li>
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
+>>>>>>> 1d8c7f2fa47416633189c82d9f37c17437aae32e
                                 <a href="blog.html" class="dropdown-item">Blog Grid</a>
                                 <a href="detail.html" class="dropdown-item">Blog Detail</a>
                                 
@@ -119,6 +158,7 @@
                         <div class="nav-item dropdown">
                           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pharmacie</a>
                           <div class="dropdown-menu m-0">
+<<<<<<< HEAD
                           
                               <li class="nav-item"> <a class="nav-link" href="{{ path('app_front_medica') }}">Médicament</a></li>
                                 
@@ -127,6 +167,36 @@
                               
                           </div>
                        </div>
+=======
+                              <a href="blog.html" class="dropdown-item">Pharmacie</a>
+                              <a href="detail.html" class="dropdown-item">Pharmacie</a>
+                              
+                          </div>
+                       </div>
+<<<<<<< HEAD
+=======
+                          
+                       </div>
+                      <div class="nav-item dropdown">
+    {% if app.user %}
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profil</a>
+        <div class="dropdown-menu">
+            <a href="{{ path('app_user_profile', {'id': app.user.id}) }}" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> Mon Profil
+            </a>
+            <a href="{{ path('app_logout') }}" class="dropdown-item">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </a>
+        </div>
+    {% else %}
+        <a href="{{ path('app_login') }}" class="nav-link">
+            <i class="fas fa-sign-in-alt"></i> Connexion
+        </a>
+    {% endif %}
+</div>
+
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
+>>>>>>> 1d8c7f2fa47416633189c82d9f37c17437aae32e
                         
                     </div>
                 </div>

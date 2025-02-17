@@ -3,9 +3,24 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+<<<<<<< HEAD
 parameters:
     materiel_images_directory: '%kernel.project_dir%/public/uploads/materiel_images'
     medicament_images_directory: '%kernel.project_dir%/public/uploads/medicaments' 
+=======
+<<<<<<< HEAD
+
+parameters:
+    images_directory: '%kernel.project_dir%/public/uploads/images'
+=======
+parameters:
+<<<<<<< HEAD
+    blog_images_directory: '%kernel.project_dir%/public/uploads/blog_images'
+=======
+>>>>>>> 5e05068df1c86c1c41243b02f01d6d3a1fe7ae08
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
+
+>>>>>>> 1d8c7f2fa47416633189c82d9f37c17437aae32e
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -18,8 +33,22 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
+<<<<<<< HEAD
             - '../src/Entity/'
             - '../src/Kernel.php'
 
 
 
+=======
+<<<<<<< HEAD
+            - '../src/Kernel.php'
+
+    # Optional: Add any additional services here if needed
+=======
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+>>>>>>> 8ba3048163ae6bc316db3eb80ca3688bc7ea3320
+>>>>>>> 1d8c7f2fa47416633189c82d9f37c17437aae32e
