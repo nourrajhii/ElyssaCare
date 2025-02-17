@@ -1,0 +1,61 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Modifier le Commentaire{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .bg-primary {
+            background-color: #1976D2 !important;
+        }
+        .container-fluid {
+            padding: 5rem 0;
+        }
+        .rounded {
+            border-radius: 12px;
+        }
+        .p-5 {
+            padding: 3rem !important;
+        }
+        .btn-dark {
+            background: #424242;
+            color: white;
+            border: none;
+        }
+        .btn-dark:hover {
+            background: #212121;
+        }
+        .btn-outline-dark {
+            border: 2px solid #424242;
+        }
+        .btn-outline-dark:hover {
+            background: #424242;
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid bg-primary my-5 py-5">
+    <div class="container py-5">
+        <div class="row gx-5">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="mb-4">
+                    <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Commentaire</h5>
+                    <h1 class="display-4 text-white">Modifier le Commentaire</h1>
+                </div>
+                <p class="text-white mb-5">Vous pouvez modifier le contenu de ce commentaire.</p>
+                <a class="btn btn-dark rounded-pill py-3 px-5 me-3" href="{{ path('app_front_coment') }}">Retour</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-white text-center rounded p-5">
+                    <h1 class="mb-4">Modifier les Informations du Commentaire</h1>
+                    {{ include('commentaire/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+                    <div class="mt-3">
+                        {{ include('commentaire/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

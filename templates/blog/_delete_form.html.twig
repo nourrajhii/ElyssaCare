@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un blog</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e3f2fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 850px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-container {
+            width: 50%;
+            padding: 20px;
+        }
+
+        .form-container h2 {
+            color: rgb(149, 14, 44);
+            text-align: center;
+            font-weight: 800;
+            animation: slideIn 0.5s ease-out;
+            font-family: serif;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-bottom-color: rgb(122, 8, 15);
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .save-btn {
+            background-color: #42A5F5;
+        }
+
+        .save-btn:hover {
+            background-color: #1E88E5;
+        }
+
+        .save-btn:active {
+            transform: scale(0.95);
+        }
+
+        .back-btn {
+            background-color: #9E9E9E;
+        }
+
+        .back-btn:hover {
+            background-color: #757575;
+        }
+
+        .image-container {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        /* ====== Bouton de suppression sous forme d'icône ====== */
+        .btn-icon {
+            background-color:rgb(202, 181, 179); /* Rouge vif */
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .btn-icon svg {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-icon:hover {
+            background-color:rgb(243, 237, 236); /* Rouge plus foncé */
+            transform: scale(1.1);
+        }
+
+        .btn-icon:active {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+<form method="post" action="{{ path('app_blog_delete', {'id': blog.id}) }}" 
+      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ blog.id) }}">
+    
+    <button type="submit" class="btn-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m2 0v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6h14zM10 11v6M14 11v6" 
+                  stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+</form>
+</body>
