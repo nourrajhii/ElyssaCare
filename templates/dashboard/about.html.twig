@@ -1,0 +1,82 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}home -{% endblock %}
+
+{% block body %}
+<div class="main-panel">
+<div class="content-wrapper pb-0">
+
+<div class="mt-4"">
+
+ {{form_start(form)}}
+
+   <div class="form-group">
+
+    {{form_label(form.nom_laboratoire)}}
+    {{form_widget(form.nom_laboratoire,{'attr':{'class':'form-control'}})}}
+   </div>
+
+ <div class="form-group">
+
+    {{form_label(form.adresse)}}
+    {{form_widget(form.adresse,{'attr':{'class':'form-control'}})}}
+   </div>
+
+
+ <div class="form-group">
+
+    {{form_label(form.telephone)}}
+    {{form_widget(form.telephone,{'attr':{'class':'form-control'}})}}
+   </div>
+
+
+ <div class="form-group">
+
+    {{form_label(form.email)}}
+    {{form_widget(form.email,{'attr':{'class':'form-control'}})}}
+   </div>
+
+
+ <div class="form-group">
+
+    {{form_label(form.responsable)}}
+    {{form_widget(form.responsable,{'attr':{'class':'form-control'}})}}
+   </div>
+
+
+ <div class="form-group">
+
+    {{form_label(form.specialite)}}
+    {{form_widget(form.specialite,{'attr':{'class':'form-control'}})}}
+   </div>
+
+
+ <div class="form-group">
+
+    {{form_label(form.horaire_ouverture)}}
+    {{form_widget(form.horaire_ouverture,{'attr':{'class':'form-control'}})}}
+   </div>
+
+
+ <div class="form-group">
+
+    {{form_label(form.horaire_fermeture)}}
+    {{form_widget(form.horaire_fermeture,{'attr':{'class':'form-control'}})}}
+   </div>
+
+
+
+
+
+</div>
+
+{{form_widget(form.save)}}
+
+{{form_end(form)}}
+
+</div>
+</div>
+</div>
+
+
+{% endblock %}

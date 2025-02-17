@@ -1,0 +1,110 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}📅 Liste des Rendez-vous{% endblock %}
+
+{% block body %}
+
+<div class="main-panel">
+    <div class="content-wrapper pb-0">
+        <div class="container mt-4">
+            <h2 class="text-center mb-4 text-uppercase fw-bold">📅 Gestion des Rendez-vous</h2>
+
+            <!-- Barre de recherche -->
+            <div class="mb-4 text-center">
+                <input type="text" id="searchInput" class="form-control w-50 mx-auto search-bar" placeholder="🔎 Rechercher par nom...">
+            </div>
+
+            <div class="row" id="rendezVousContainer">
+                {% for rendez_vou in rendez_vouses %}
+                    <div class="col-md-4 mb-4 rendez-vous-card">
+                        <div class="card h-100 shadow-sm border-0 rounded-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-primary fw-bold">🆔 Rendez-vous #{{ rendez_vou.id }}</h5>
+                                <p class="card-text text-muted">
+                                    👤 <strong>Nom:</strong> <span class="patient-name text-dark">{{ rendez_vou.patientNom }}</span><br>
+                                    📧 <strong>Email:</strong> {{ rendez_vou.patientEmail }}<br>
+                                    📞 <strong>Téléphone:</strong> {{ rendez_vou.patientTelephone }}<br>
+                                    📅 <strong>Date:</strong> {{ rendez_vou.date ? rendez_vou.date|date('d/m/Y') : 'N/A' }}<br>
+                                    ⏰ <strong>Heure:</strong> {{ rendez_vou.heure ? rendez_vou.heure|date('H:i') : 'N/A' }}<br>
+                                    🔹 <strong>État:</strong> <span class="badge bg-success">{{ rendez_vou.etat }}</span>
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                                {{ include('rendez_vous/_delete_form.html.twig') }}
+                                <a href="{{ path('app_rendez_vous_edit', {'id': rendez_vou.id}) }}" class="btn btn-outline-primary btn-sm">
+                                    ✅ Accepter
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <p class="text-center text-danger fw-bold">Aucun rendez-vous trouvé.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script pour la recherche dynamique -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        let filter = this.value.toLowerCase();
+        let cards = document.querySelectorAll(".rendez-vous-card");
+
+        cards.forEach(card => {
+            let name = card.querySelector(".patient-name").textContent.toLowerCase();
+            card.style.display = name.includes(filter) ? "block" : "none";
+        });
+    });
+</script>
+
+<!-- CSS Personnalisé -->
+<style>
+    /* Conteneur principal */
+    .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Champ de recherche */
+    .search-bar {
+        border-radius: 50px;
+        padding: 12px 20px;
+        transition: all 0.3s ease-in-out;
+        border: 2px solid #007bff;
+    }
+
+    .search-bar:focus {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    }
+
+    /* Cartes */
+    .card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border-radius: 15px;
+        background: white;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style du texte */
+    h2 {
+        color: #333 !important;
+    }
+
+    .text-primary {
+        color: #007bff !important;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+    }
+</style>
+
+{% endblock %}

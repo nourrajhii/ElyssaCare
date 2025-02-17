@@ -1,0 +1,38 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Créer une Analyse{% endblock %}
+
+{% block body %}
+<div class="main-panel">
+<div class="content-wrapper pb-0">
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4" style="width: 40rem;">
+        <div class="card-body">
+            <h1 class="text-center fw-bold mb-4" style="color: #e83e8c;">
+                <i class="fas fa-vial"></i> Nouvelle Analyse
+            </h1>
+
+            {{ include('analyse/_form.html.twig') }}
+
+            <div class="text-center mt-3">
+                <a href="{{ path('app_analyse_index') }}" class="btn btn-outline-secondary rounded-pill">
+                    <i class="fas fa-arrow-left"></i> Retour à la liste
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    .card:hover {
+        transform: scale(1.02);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+{% endblock %}

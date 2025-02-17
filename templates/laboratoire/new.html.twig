@@ -1,0 +1,27 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Créer un Laboratoire{% endblock %}
+
+{% block body %}
+ <div class="main-panel">
+  <div class="content-wrapper pb-0">
+<div class="container mt-4">
+    <div class="card shadow-lg p-4" style="max-width: 50rem; margin: auto;">
+        
+        <!-- Bouton Retour avec Flèche -->
+        <div class="mb-3">
+            <a href="{{ path('app_laboratoire_index') }}" class="btn btn-outline-danger">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+
+        <div class="card-body">
+            <h2 class="text-center text-danger">Créer un nouveau Laboratoire</h2>
+
+            {{ include('laboratoire/_form.html.twig') }}
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

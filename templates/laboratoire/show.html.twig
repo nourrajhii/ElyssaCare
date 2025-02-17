@@ -1,0 +1,59 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}home -{% endblock %}
+
+{% block body %}
+<div class="main-panel">
+<div class="content-wrapper pb-0">
+
+    <h1>Laboratoire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ laboratoire.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_laboratoire</th>
+                <td>{{ laboratoire.nomLaboratoire }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ laboratoire.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ laboratoire.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ laboratoire.email }}</td>
+            </tr>
+            <tr>
+                <th>Responsable</th>
+                <td>{{ laboratoire.responsable }}</td>
+            </tr>
+            <tr>
+                <th>Specialite</th>
+                <td>{{ laboratoire.specialite }}</td>
+            </tr>
+            <tr>
+                <th>Horaire_ouverture</th>
+                <td>{{ laboratoire.horaireOuverture }}</td>
+            </tr>
+            <tr>
+                <th>Horaire_fermeture</th>
+                <td>{{ laboratoire.horaireFermeture }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_laboratoire_index') }}">back to list</a>
+
+    <a href="{{ path('app_laboratoire_edit', {'id': laboratoire.id}) }}">edit</a>
+
+    {{ include('laboratoire/_delete_form.html.twig') }}
+    </div>
+    </div>
+{% endblock %}

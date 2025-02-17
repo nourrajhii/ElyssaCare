@@ -1,0 +1,124 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Créer un Laboratoire</h4>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(form, {'attr': {'novalidate':'novalidate' ,'id': 'laboratoireForm'}}) }}
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.nom_laboratoire, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.nom_laboratoire, {'attr': {'class': 'form-control', 'placeholder': 'Nom du laboratoire'}}) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.nom_laboratoire) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.adresse, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.adresse) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.telephone, null, {'label_attr': {'class': 'form-label'}}) }}
+                            <div class="input-group">
+                                <span class="input-group-text">+216</span>
+                                {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Téléphone'}}) }}
+                                <div class="text-danger">
+                                {{ form_errors(form.telephone) }}
+                                  </div>
+                             </div>
+                         </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                            <div class="input-group">
+                                <span class="input-group-text">@</span>
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                                 
+                            </div>
+                            <div class="text-danger">
+                                  {{ form_errors(form.email) }}
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.responsable, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.responsable, {'attr': {'class': 'form-control', 'placeholder': 'Responsable'}}) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.responsable) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.specialite, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.specialite, {'attr': {'class': 'form-control', 'placeholder': 'Spécialité'}}) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.specialite) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.horaire_ouverture, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.horaire_ouverture, {'attr': {'class': 'form-control', 'placeholder': 'Heure d\'ouverture'}}) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.horaire_ouverture) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.horaire_fermeture, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.horaire_fermeture, {'attr': {'class': 'form-control', 'placeholder': 'Heure de fermeture'}}) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.horaire_fermeture) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success px-5">
+                            <i class="fas fa-save"></i> Enregistrer
+                        </button>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ajout de FontAwesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- Script pour la validation en temps réel -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const formFields = document.querySelectorAll('.form-control');
+
+        formFields.forEach(function(field) {
+            field.addEventListener('input', function () {
+                if (field.validity.valid) {
+                    field.classList.remove('is-invalid');
+                    field.classList.add('is-valid');
+                } else {
+                    field.classList.remove('is-valid');
+                    field.classList.add('is-invalid');
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+

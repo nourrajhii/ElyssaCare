@@ -1,0 +1,80 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Laboratoires{% endblock %}
+
+{% block body %}
+
+<div class="main-panel">
+    <div class="content-wrapper pb-0">
+    
+        <div class="container mt-4">
+            <h2 class="text-center mb-4">Nos Laboratoires</h2>
+
+            <!-- Section d'ajout et recherche -->
+            <div class="card p-4 shadow-sm mb-4">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                    <!-- Bouton Ajouter un laboratoire -->
+                    <a href="{{ path('app_laboratoire_new') }}" class="btn btn-danger btn-lg mb-3 mb-md-0">
+                        ➕ Ajouter un laboratoire
+                    </a>
+                    
+                    <!-- Barre de recherche -->
+                    <div class="input-group w-50">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Rechercher un laboratoire...">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liste des laboratoires -->
+            <div class="row" id="laboratoireList">
+                {% for laboratoire in laboratoires %}
+                    <div class="col-md-4 mb-4 laboratoire-card">
+                        <div class="card h-100 shadow-lg">
+                            <img class="card-img-top" src="{{ asset('/front/img/laboratoire1.jpg') }}" alt="Laboratoire">
+                            <div class="card-body">
+                                <h5 class="card-title text-danger laboratoire-nom">{{ laboratoire.nomLaboratoire }}</h5>
+                                <p class="card-text">
+                                    📍 <span class="laboratoire-adresse">{{ laboratoire.adresse }}</span> <br>
+                                    📞 {{ laboratoire.telephone }}
+                                </p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">✉️ Email: {{ laboratoire.email }}</li>
+                                <li class="list-group-item">👤 Responsable: {{ laboratoire.responsable }}</li>
+                                <li class="list-group-item">🧪 Spécialité: {{ laboratoire.specialite }}</li>
+                                <li class="list-group-item">⏰ {{ laboratoire.horaireOuverture }} - {{ laboratoire.horaireFermeture }}</li>
+                            </ul>
+                            <div class="card-body text-center">
+                                <a href="{{ path('app_laboratoire_edit', {'id': laboratoire.id}) }}" class="btn btn-outline-danger">
+                                    ✏️ Modifier
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <p class="text-center text-danger">Aucun laboratoire trouvé.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script pour la recherche dynamique -->
+<script>
+    document.getElementById("searchInput").addEventListener("input", function() {
+        let filter = this.value.toLowerCase();
+        let cards = document.querySelectorAll(".laboratoire-card");
+
+        cards.forEach(card => {
+            let name = card.querySelector(".laboratoire-nom").textContent.toLowerCase();
+            let adresse = card.querySelector(".laboratoire-adresse").textContent.toLowerCase();
+
+            card.style.display = (name.includes(filter) || adresse.includes(filter)) ? "block" : "none";
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Rendez-vous{% endblock %}
+
+{% block body %}
+
+<div class="main-panel">
+    <div class="content-wrapper pb-0">
+
+        <div class="container mt-4">
+            <h2 class="text-center mb-4">Liste des Rendez-vous</h2>
+
+            <!-- Champ de recherche -->
+            <div class="mb-4 text-center">
+                <input type="text" id="searchInput" class="form-control w-50 mx-auto" placeholder="Rechercher par nom...">
+            </div>
+
+            <div class="row" id="rendezVousContainer">
+                {% for rendez_vou in rendez_vouses %}
+                    <div class="col-md-4 mb-4 rendez-vous-card">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Rendez-vous #{{ rendez_vou.id }}</h5>
+                                <p class="card-text">
+                                    👤 <strong>Nom:</strong> <span class="patient-name">{{ rendez_vou.patientNom }}</span><br>
+                                    📧 <strong>Email:</strong> {{ rendez_vou.patientEmail }}<br>
+                                    📞 <strong>Téléphone:</strong> {{ rendez_vou.patientTelephone }}<br>
+                                    📅 <strong>Date:</strong> {{ rendez_vou.date ? rendez_vou.date|date('Y-m-d') : 'N/A' }}<br>
+                                    ⏰ <strong>Heure:</strong> {{ rendez_vou.heure ? rendez_vou.heure|date('H:i') : 'N/A' }}<br>
+                                    🔹 <strong>État:</strong> {{ rendez_vou.etat }}
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                                
+                                <a href="{{ path('app_rendez_vous_edit', {'id': rendez_vou.id}) }}" class="btn btn-outline-secondary">voire les analyse</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <p class="text-center text-danger">Aucun rendez-vous trouvé.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        let filter = this.value.toLowerCase();
+        let cards = document.querySelectorAll(".rendez-vous-card");
+
+        cards.forEach(card => {
+            let name = card.querySelector(".patient-name").textContent.toLowerCase();
+            card.style.display = name.includes(filter) ? "block" : "none";
+        });
+    });
+</script>
+
+{% endblock %}

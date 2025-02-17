@@ -1,0 +1,164 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Liste des Analyses{% endblock %}
+
+{% block body %}
+<div class="main-panel">
+    <div class="content-wrapper pb-0">
+
+        <!-- Conteneur de la liste des analyses -->
+        <div class="container mt-5">
+            <h1 class="text-center mb-4 text-primary">🔬 Liste des Analyses Médicales</h1>
+
+            <div class="row">
+                {% for analyse in analyses %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="card shadow-lg border-0 rounded-4 h-100" style="background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-primary fw-bold text-center">{{ analyse.nom }}</h5>
+                                <hr>
+
+                                <!-- Informations sur l'analyse -->
+                                <p><strong><i class="fas fa-flask"></i> Type d'analyse :</strong> {{ analyse.typeAnalyse }}</p>
+                                <p><strong><i class="fas fa-info-circle"></i> Description :</strong> {{ analyse.description }}</p>
+                                <p><strong><i class="fas fa-tag"></i> Prix :</strong> <span class="text-success fw-bold">{{ analyse.prix }} TND</span></p>
+
+                                <!-- Statut -->
+                                <p><strong><i class="fas fa-check-circle"></i> Statut :</strong> 
+                                    <span class="badge {% if analyse.statut == 'Disponible' %}bg-success{% else %}bg-danger{% endif %}">
+                                        {{ analyse.statut }}
+                                    </span>
+                                </p>
+
+                                <!-- Dates de création et mise à jour -->
+                                <p><strong><i class="far fa-calendar-alt"></i> Date de création :</strong> 
+                                    {{ analyse.dateCreation ? analyse.dateCreation|date('d/m/Y H:i') : 'Non définie' }}
+                                </p>
+                                <p><strong><i class="far fa-clock"></i> Dernière mise à jour :</strong> 
+                                    {{ analyse.dateMiseAJour ? analyse.dateMiseAJour|date('d/m/Y H:i') : 'Non définie' }}
+                                </p>
+
+                                <!-- Boutons Voir et Modifier -->
+                                <div class="d-flex justify-content-between mt-3">
+                                    <a href="{{ path('app_analyse_show', {'id': analyse.id}) }}" class="btn btn-outline-info btn-sm">
+                                        <i class="fas fa-eye"></i> Voir
+                                    </a>
+                                    <a href="{{ path('app_analyse_edit', {'id': analyse.id}) }}" class="btn btn-outline-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Modifier
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <div class="alert alert-warning text-center">
+                            <i class="fas fa-exclamation-triangle"></i> Aucune analyse trouvée.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Bouton Ajouter une analyse -->
+            <div class="text-center mt-4">
+                <a href="{{ path('app_analyse_new') }}" class="btn btn-primary btn-lg rounded-pill shadow">
+                    <i class="fas fa-plus"></i> Ajouter une nouvelle analyse
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Styles CSS -->
+<style>
+    body {
+        background-color: #f7f9fc;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Animation des molécules et éléments d'analyse */
+    .molecule {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgba(0, 123, 255, 0.5);
+        animation: moveMolecule 10s infinite linear;
+    }
+
+    .molecule:nth-child(odd) {
+        background-color: rgba(40, 167, 69, 0.5);
+    }
+
+    .molecule:nth-child(even) {
+        background-color: rgba(255, 193, 7, 0.5);
+    }
+
+    @keyframes moveMolecule {
+        0% {
+            transform: translate(0, 0);
+        }
+        50% {
+            transform: translate(100px, 100px);
+        }
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+
+    /* Définition du style pour les cartes et boutons */
+    .card:hover {
+        transform: translateY(-5px);
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-outline-info:hover, .btn-outline-warning:hover {
+        background-color: #f1f1f1;
+        border-color: #007bff;
+    }
+
+    .badge.bg-success {
+        background-color: #28a745;
+    }
+
+    .badge.bg-danger {
+        background-color: #dc3545;
+    }
+
+    /* Animation de fond dynamique */
+    .background-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(0, 123, 255, 0.2), rgba(40, 167, 69, 0.2));
+        background-size: 200% 200%;
+        animation: gradientAnimation 6s ease infinite;
+        z-index: -1;
+    }
+
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 200% 200%;
+        }
+        50% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 200% 200%;
+        }
+    }
+</style>
+
+<!-- Ajout d'éléments animés pour représenter les molécules -->
+<div class="background-animation"></div>
+<div class="molecule" style="top: 20%; left: 10%; animation-duration: 12s;"></div>
+<div class="molecule" style="top: 30%; left: 50%; animation-duration: 15s;"></div>
+<div class="molecule" style="top: 60%; left: 30%; animation-duration: 20s;"></div>
+<div class="molecule" style="top: 70%; left: 80%; animation-duration: 25s;"></div>
+
+{% endblock %}

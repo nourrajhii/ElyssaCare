@@ -1,0 +1,101 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Créer un Rendez-vous</h4>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.patient_nom, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.patient_nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom du patient'}}) }}
+                            <div class="text-danger">
+                                  {{ form_errors(form.patient_nom) }}
+                                </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.patient_email, null, {'label_attr': {'class': 'form-label'}}) }}
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                {{ form_widget(form.patient_email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                            </div>
+                            <div class="text-danger">
+                                  {{ form_errors(form.patient_email) }}
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.patient_telephone, null, {'label_attr': {'class': 'form-label'}}) }}
+                            <div class="input-group">
+                                <span class="input-group-text">+216</span>
+                                {{ form_widget(form.patient_telephone, {'attr': {'class': 'form-control', 'placeholder': 'Téléphone'}}) }}
+                                
+                            </div>
+                            <div class="text-danger">
+                                  {{ form_errors(form.patient_telephone) }}
+                                </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.date, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                            <div class="text-danger">
+                                  {{ form_errors(form.date) }}
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.heure, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.heure, {'attr': {'class': 'form-control'}}) }}
+                            <div class="text-danger">
+                                  {{ form_errors(form.heure) }}
+                                </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.etat, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+                            <div class="text-danger">
+                                  {{ form_errors(form.etat) }}
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success px-5">
+                            <i class="fas fa-save"></i> Enregistrer
+                        </button>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ajout de FontAwesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const formFields = document.querySelectorAll('.form-control');
+
+        formFields.forEach(function(field) {
+            field.addEventListener('input', function () {
+                if (field.validity.valid) {
+                    field.classList.remove('is-invalid');
+                    field.classList.add('is-valid');
+                } else {
+                    field.classList.remove('is-valid');
+                    field.classList.add('is-invalid');
+                }
+            });
+        });
+    });
+</script>

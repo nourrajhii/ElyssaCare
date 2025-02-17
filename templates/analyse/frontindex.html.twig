@@ -1,0 +1,103 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}home -{% endblock %}
+
+
+
+{% block body %}
+
+<style>
+        body { font-family: Arial, sans-serif; }
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 80%;
+            margin: auto;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        h1 {
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+
+
+
+<div class="card"  style="max-width: 80%; margin: auto;">
+  <div class="card-body">
+<div class="main-panel">
+<div class="content-wrapper pb-0">
+    <div class="card">
+    <h1>Analyse Détails</h1>
+    
+    <table>
+    {% if analyses is defined and analyses is not empty %}
+    {% for analyse in analyses %}
+        <tr>
+            <th>ID</th>
+            <td>{{ analyse.id }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ analyse.nom }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ analyse.description }}</td>
+        </tr>
+        <tr>
+            <th>Prix</th>
+            <td>{{ analyse.prix }} TND</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ analyse.typeAnalyse }}</td>
+        </tr>
+        <tr>
+            <th>Statut</th>
+            <td>{{ analyse.statut }}</td>
+        </tr>
+        <tr>
+            <th>Date de création</th>
+            <td>{{ analyse.dateCreation ? analyse.dateCreation|date('d/m/Y H:i') : 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Dernière mise à jour</th>
+            <td>{{ analyse.dateMiseAJour ? analyse.dateMiseAJour|date('d/m/Y H:i') : 'N/A' }}</td>
+        </tr>
+
+        <td>
+    
+    <a href="{{ path('app_analyse_pdf', {'id': analyse.id}) }}" class="btn btn-danger">📄 Télécharger PDF</a>
+</td>
+
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+</div>
+
+    
+
+</div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
+

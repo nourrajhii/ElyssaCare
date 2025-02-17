@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Analyse;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+class AnalyseType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('nom')
+            ->add('description')
+            ->add('prix')
+            ->add('type_analyse')
+            ->add('statut')
+            ->add('date_creation')
+            ->add('date_mise_a_jour')
+            ->add('laboratoire')
+            ->add('rendezVous')
+            ->add('rendezVouses')
+            ->add('save',SubmitType::class,[
+                'attr' =>[
+                    'class'=>'btn btn-primary mt-2'
+                ]
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Analyse::class,
+        ]);
+    }
+}

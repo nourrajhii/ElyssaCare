@@ -1,0 +1,73 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Laboratoires{% endblock %}
+
+{% block body %}
+
+
+<!-- Hero Start -->
+
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+        <div class="container py-5">
+            <div class="row justify-content-start">
+                <div class="col-lg-8 text-center text-lg-start">
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To ElyssaCare</h5>
+                    <h1 class="display-1 text-white mb-md-4">Your Health,Our Priority
+                    </h1>
+                    <div class="pt-2">
+                        <a href="" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Find Doctor</a>
+                        <a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+    
+
+
+
+
+
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Nos Laboratoires</h2>
+
+        <div class="row"> {# Row pour afficher les colonnes #}
+        {% if laboratoires is not empty %}
+            {% for laboratoire in laboratoires %}
+                <div class="col-md-4 mb-4"> {# Chaque carte occupe 4 colonnes sur 12 #}
+                    <div class="card h-100 shadow-sm"> {# Ajout d'une ombre et hauteur fixe #}
+                        <img class="card-img-top" src="{{ asset('/front/img/laboratoire1.jpg') }}" alt="Laboratoire">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">{{ laboratoire.nomLaboratoire }}</h5>
+                            <p class="card-text">
+                                📍 {{ laboratoire.adresse }} <br>
+                                📞 {{ laboratoire.telephone }}
+                            </p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">👤 Responsable: {{ laboratoire.responsable }}</li>
+                            <li class="list-group-item">🧪 Spécialité: {{ laboratoire.specialite }}</li>
+                            <li class="list-group-item">
+                                ⏰ {{ laboratoire.horaireOuverture }} - {{ laboratoire.horaireFermeture }}
+                            </li>
+                        </ul>
+                        <div class="card-body text-center">
+                            <a href="{{ path('app_rendez_vous_new', { laboratoire: laboratoire.id }) }}" class="btn btn-primary">
+    Prendre Rendez-vous
+</a>
+
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center text-danger">Aucun laboratoire trouvé.</p>
+                </div>
+            {% endfor %}
+            {% endif %}
+
+        </div> {# Fin de la row #}
+    </div>
+{% endblock %}
