@@ -1,0 +1,64 @@
+{% extends templateParent %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card" style="border-radius: 15px; background-color: #f2faff; padding: 40px;">
+                    <div class="card-body text-center">
+                        <!-- User Profile Picture -->
+                        <div class="mb-4">
+                            <img src="{{ asset('front/img/frontImg.jpg') }}" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #008CBA;">
+                        </div>
+
+                        <h1 style="color: #008CBA;">My Profile</h1>
+
+                        <table class="table table-bordered mt-4">
+                            <tbody>
+                                <tr>
+                                    <th class="text-center" style="background-color: #f8d7da; color: #721c24;">Name</th>
+                                    <td class="text-center" style="font-weight: bold; color: #6c757d;">{{ user.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" style="background-color: #f8d7da; color: #721c24;">Email</th>
+                                    <td class="text-center" style="font-weight: bold; color: #6c757d;">{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" style="background-color: #f8d7da; color: #721c24;">Role</th>
+                                    <td class="text-center" style="font-weight: bold; color: #6c757d;">
+                                        {% if 'ROLE_ADMIN' in user.roles %}
+                                            Admin
+                                        {% elseif 'ROLE_DOCTOR' in user.roles %}
+                                            Doctor
+                                        {% elseif 'ROLE_PATIENT' in user.roles %}
+                                            Patient
+                                        {% elseif 'ROLE_PHARMACY' in user.roles %}
+                                            Pharmacy
+                                        {% else %}
+                                            User
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn" style="background-color: #008CBA; color: white; border-radius: 10px; padding: 10px 20px;">Edit My Profile</a>
+                            <form action="{{ path('app_user_delete', {'id': user.id}) }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
+                                <button type="submit" class="btn" style="background-color:rgb(23, 101, 128); color: white; border-radius: 10px; padding: 10px 20px;">Delete</button>
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            </form>
+                           {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('app_dashboard') }}" class="btn" style="background-color: #f8d7da; color: #721c24; border-radius: 10px; padding: 10px 20px;">Back to Dashboard</a>
+{% else %}
+    <a href="{{ path('app_front') }}" class="btn" style="background-color: #d1ecf1; color: #0c5460; border-radius: 10px; padding: 10px 20px;">Back to Home</a>
+{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

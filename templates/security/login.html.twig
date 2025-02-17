@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Bleu ciel */
+        }
+        .login-container {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            background: url('front/img/back.jpg') no-repeat center center / cover; /* Image en arrière-plan */
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .form-container {
+            flex: 1;
+            padding-right: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent pour lisibilité */
+            border-radius: 10px;
+            padding: 30px;
+        }
+        .image-container {
+            display: none; /* On cache cette section, car l'image est maintenant en arrière-plan */
+        }
+        .input-group-text {
+            background: transparent;
+            border: none;
+        }
+        .btn-custom {
+            background-color: #00aaff;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #0088cc;
+        }
+        .signup-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="login-container">
+        <!-- Form Section -->
+        <div class="form-container">
+            <h1 class="text-center">𝑳𝑶𝑮𝑰𝑵</h1>
+
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            <form method="post">
+                <!-- Email input with icon -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope-at"></i></span>
+                    <input type="email" name="email" id="inputEmail" class="form-control" value="{{ last_username }}" required autofocus placeholder="Email">
+                </div>
+
+                <!-- Password input with icon -->
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                    <input type="password" name="password" id="inputPassword" class="form-control" required placeholder="Password">
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <!-- Remember me checkbox -->
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="_remember_me" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember Me</label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-custom w-100">
+                    <i class="bi bi-box-arrow-in-right"></i> Login
+                </button>
+            </form>
+
+            <!-- Sign Up Link -->
+            <a href="{{ path('app_user_new') }}" class="signup-link text-primary">
+                <i class="bi bi-person-plus-fill"></i> Don't have an account? Sign Up
+            </a>
+            <a href="{{ path('app_forgot_password_request') }}">Did you forget your password?</a>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -18,8 +18,11 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+<<<<<<< HEAD
 
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+=======
+>>>>>>> 5e05068df1c86c1c41243b02f01d6d3a1fe7ae08

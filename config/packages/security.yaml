@@ -4,14 +4,37 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
+<<<<<<< HEAD
         users_in_memory: { memory: null }
+=======
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+>>>>>>> 5e05068df1c86c1c41243b02f01d6d3a1fe7ae08
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
+<<<<<<< HEAD
             provider: users_in_memory
+=======
+            provider: app_user_provider
+            custom_authenticator: App\Security\LoginAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: app_login
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
+                always_remember_me: true
+>>>>>>> 5e05068df1c86c1c41243b02f01d6d3a1fe7ae08
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -22,8 +45,14 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+<<<<<<< HEAD
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+=======
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+       
+>>>>>>> 5e05068df1c86c1c41243b02f01d6d3a1fe7ae08
 
 when@test:
     security:

@@ -1,5 +1,9 @@
 controllers:
+<<<<<<< HEAD
     resource:
         path: ../src/Controller/
         namespace: App\Controller
+=======
+    resource: ../src/Controller/
+>>>>>>> 5e05068df1c86c1c41243b02f01d6d3a1fe7ae08
     type: attribute
