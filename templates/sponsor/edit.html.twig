@@ -1,0 +1,98 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Modifier un Sponsor{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier le Sponsor</h1>
+
+        <!-- Formulaire de modification -->
+        {{ include('sponsor/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+        <div class="btn-container">
+            <a href="{{ path('app_sponsor_index') }}" class="btn btn-back">⬅ Retour à la liste</a>
+
+            <!-- Formulaire de suppression -->
+            <form action="{{ path('app_sponsor_delete', {'id': sponsor.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sponsor ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sponsor.id) }}">
+                <button type="submit" class="btn btn-delete">🗑 Supprimer</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

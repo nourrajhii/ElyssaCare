@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+
+    {% for field in form %}
+        <div class="form-group">
+            {{ form_label(field) }}
+            {{ form_widget(field, { 'attr': {'class': 'form-control'} }) }}
+
+            {% if field.vars.errors|length > 0 %}
+                {% for error in field.vars.errors %}
+                    <div class="text-danger" style="font-size: 14px; margin-top: 5px;">
+                        {{ error.message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    {% if form.vars.errors|length > 0 %}
+        <div class="alert alert-danger mt-3">
+            <strong>Veuillez corriger les erreurs suivantes :</strong>
+            <ul>
+                {% for error in form.vars.errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <button class="btn btn-primary mt-3">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}

@@ -1,0 +1,155 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Ajouter un Sponsor{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e3f2fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 850px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-container {
+            width: 50%;
+            padding: 20px;
+        }
+
+        .form-container h2 {
+            color: #1976D2;
+            text-align: center;
+            font-weight: 600;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-bottom-color: #1976D2;
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .save-btn {
+            background-color: #42A5F5;
+        }
+
+        .save-btn:hover {
+            background-color: #1E88E5;
+        }
+
+        .save-btn:active {
+            transform: scale(0.95);
+        }
+
+        .back-btn {
+            background-color: #9E9E9E;
+        }
+
+        .back-btn:hover {
+            background-color: #757575;
+        }
+
+        .image-container {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 15px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="form-container">
+            <h2>Ajouter un Sponsor</h2>
+
+            <!-- Formulaire de création d'un sponsor -->
+            {{ include('sponsor/_form.html.twig', {'button_label': 'Créer'}) }}
+
+            <a href="{{ path('app_sponsor_index') }}" class="btn back-btn">⬅ Retour à la liste</a>
+        </div>
+
+        
+    </div>
+{% endblock %}

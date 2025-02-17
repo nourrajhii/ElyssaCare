@@ -1,0 +1,59 @@
+{% extends 'base_front.html.twig' %}
+
+{% block body %}
+    
+    <h1>sponsoring</h1>
+
+    <!-- Bouton flottant pour ajouter un événement -->
+    <a href="{{ path('app_sponsor_new') }}" class="btn btn-primary floating-button" title="Ajouter sponsor">
+        <i class="fas fa-plus"></i>
+    </a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>Description</th>
+                <th>prix</th>
+                <th>type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sponsor in sponsors %}
+                <tr>
+                    <td>{{ sponsor.id }}</td>
+                    <td>{{ sponsor.name }}</td>
+                    <td>{{ sponsor.description }}</td>
+                    <td>{{ sponsor.prix }}</td>
+                    <td>{{ sponsor.type }}</td>
+                    <td>
+                       <a href="{{ path('app_sponsore_show', {'id': sponsor.id}) }}" class="btn btn-info">details for sponsoring</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Ajout du CSS pour positionner le bouton -->
+    <style>
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 24px;
+        }
+    </style>
+
+    <!-- Ajout de FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+{% endblock %}
