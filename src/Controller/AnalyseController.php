@@ -11,6 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Knp\Snappy\Pdf;
+use Twig\Environment;
+
+use App\Service\MedicalChatbotService;
+
+
+
+
+
+
 #[Route('/analyse')]
 class AnalyseController extends AbstractController
 {
@@ -78,4 +88,33 @@ class AnalyseController extends AbstractController
 
         return $this->redirectToRoute('app_analyse_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    #[Route('/pdf/{id}', name: 'app_analyse_pdf')]
+    public function generatePdf(Analyse $analyse, Pdf $pdf, Environment $twig): Response
+    {
+        // Générer le contenu HTML du PDF à partir d'un template Twig
+        $html = $twig->render('analyse/pdf.html.twig', [
+            'analyse' => $analyse
+        ]);
+    
+        // Générer le PDF
+        $pdfContent = $pdf->getOutputFromHtml($html);
+    
+        // Retourner le PDF en tant que réponse HTTP pour le téléchargement
+        return new Response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="analyse_'.$analyse->getId().'.pdf"' // Ceci permet de télécharger le PDF
+        ]);
+    }
+
+
+
+
+   
+
+
+
+    
+    
 }

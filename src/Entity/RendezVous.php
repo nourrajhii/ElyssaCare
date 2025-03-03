@@ -49,7 +49,7 @@ class RendezVous
     private ?\DateTimeInterface $heure = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Choice(choices: ['En attente', 'Confirmé', 'Annulé'], message: "L'état doit être 'En attente', 'Confirmé' ou 'Annulé'.")]
+    #[Assert\Choice(choices: ['irm', 'orm', 'scanner'], message: "L'état doit être 'irm', 'orm' ou 'scanner'.")]
     private ?string $etat = null;
 
     //#[ORM\ManyToMany(targetEntity: Analyse::class, mappedBy: 'rendezVous')]
@@ -212,6 +212,8 @@ class RendezVous
 
         return $this;
     }
+
+    
 
     
 }

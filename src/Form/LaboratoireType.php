@@ -22,11 +22,7 @@ class LaboratoireType extends AbstractType
             ->add('specialite')
             ->add('horaire_ouverture')
             ->add('horaire_fermeture')
-            ->add('save',SubmitType::class,[
-                'attr' =>[
-                    'class'=>'btn btn-primary mt-2'
-                ]
-            ])
+            
             
         ;
     }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport d'Analyse</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #4CAF50;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .section p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+        .statut {
+            font-weight: bold;
+            color: #f44336;
+        }
+        .prix {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .id, .nom {
+            color: #333;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f2f2f2;
+            border-radius: 8px;
+        }
+        .footer p {
+            font-size: 16px;
+            color: #888;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Résultat d'Analyse</h1>
+    <div class="container">
+        <div class="section">
+            <h2>ID de l'Analyse</h2>
+            <p class="id">{{ analyse.id }}</p>
+        </div>
+        <div class="section">
+            <h2>Nom de l'Analyse</h2>
+            <p class="nom">{{ analyse.nom }}</p>
+        </div>
+        <div class="section">
+            <h2>Description</h2>
+            <p>{{ analyse.description }}</p>
+        </div>
+        <div class="section">
+            <h2>Prix</h2>
+            <p class="prix">{{ analyse.prix }} TND</p>
+        </div>
+        <div class="section">
+            <h2>Type d'Analyse</h2>
+            <p>{{ analyse.typeAnalyse }}</p>
+        </div>
+        <div class="section">
+            <h2>Statut</h2>
+            <p class="statut">{{ analyse.statut }}</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Rapport généré automatiquement. Merci de votre confiance.</p>
+    </div>
+</body>
+</html>

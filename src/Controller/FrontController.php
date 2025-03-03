@@ -11,6 +11,18 @@ use TCPDF;
 use App\Entity\Analyse;
 use App\Form\AnalyseType;
 use App\Repository\AnalyseRepository;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+use Twig\Environment;
+use Knp\Snappy\Pdf;
+use App\Service\MedicalChatbotService;
+use Symfony\Component\HttpFoundation\Request;
+
+use App\Entity\RendezVous;
+use App\Form\RendezVousType;
+use App\Repository\RendezVousRepository;
+
 
 class FrontController extends AbstractController
 {
@@ -44,34 +56,24 @@ public function frontindex(AnalyseRepository $analyseRepository): Response
     ]);
 }
 
-
-
-
-    #[Route('/analyse/{id}/pdf', name: 'app_analyse_pdf')]
-    public function generatePdf(Analyse $analyse): Response
+#[Route('/chatbot', name: 'app_chatbot')]
+    public function chatbot(Request $request, MedicalChatbotService $chatbotService): Response
     {
-        // Création du PDF
-        $pdf = new TCPDF();
-        $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('ElyssaCare');
-        $pdf->SetTitle('Détails de l\'Analyse');
-        $pdf->SetMargins(10, 10, 10);
-        $pdf->AddPage();
+        $question = $request->request->get('question', '');
+        $responseText = '';
 
-        // Contenu du PDF
-        $html = $this->renderView('analyse/frontindex.html.twig', [
-            'analyse' => $analyse
+        if ($question) {
+            $responseText = $chatbotService->getResponse($question);
+        }
+
+        return $this->render('analyse/chatbot.html.twig', [
+            'question' => $question,
+            'response' => $responseText,
         ]);
-
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        // Retourne le PDF en réponse
-        return new Response(
-            $pdf->Output('analyse_'.$analyse->getId().'.pdf', 'I'),
-            200,
-            ['Content-Type' => 'application/pdf']
-        );
     }
+   
+
+}
 
     
-}
+

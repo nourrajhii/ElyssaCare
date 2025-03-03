@@ -3,10 +3,8 @@
 {% block title %}Laboratoires{% endblock %}
 
 {% block body %}
-
 <div class="main-panel">
     <div class="content-wrapper pb-0">
-    
         <div class="container mt-4">
             <h2 class="text-center mb-4">Nos Laboratoires</h2>
 
@@ -17,7 +15,7 @@
                     <a href="{{ path('app_laboratoire_new') }}" class="btn btn-danger btn-lg mb-3 mb-md-0">
                         ➕ Ajouter un laboratoire
                     </a>
-                    
+
                     <!-- Barre de recherche -->
                     <div class="input-group w-50">
                         <input type="text" id="searchInput" class="form-control" placeholder="Rechercher un laboratoire...">
@@ -26,10 +24,42 @@
                 </div>
             </div>
 
+            <!-- Filtres -->
+            <div class="card p-4 shadow-sm mb-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- Filtrer par Spécialité -->
+                        <select id="filterSpecialite" class="form-control" onchange="filterLaboratoires()">
+                            <option value="">Filtrer par Spécialité</option>
+                            <option value="Analyses sanguines">Analyses sanguines</option>
+                            <option value="Radiologie">Radiologie</option>
+                            <option value="Test COVID">Test COVID</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Filtrer par Responsable -->
+                        <input type="text" id="filterResponsable" class="form-control" placeholder="Filtrer par Responsable" onkeyup="filterLaboratoires()">
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Filtrer par Adresse -->
+                        <input type="text" id="filterAdresse" class="form-control" placeholder="Filtrer par Adresse" onkeyup="filterLaboratoires()">
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Trier par Nom -->
+                        <select id="sortSelect" class="form-control" onchange="sortLaboratoires()">
+                            <option value="">Trier par</option>
+                            <option value="asc">Nom (A-Z)</option>
+                            <option value="desc">Nom (Z-A)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <!-- Liste des laboratoires -->
             <div class="row" id="laboratoireList">
                 {% for laboratoire in laboratoires %}
-                    <div class="col-md-4 mb-4 laboratoire-card">
+                    <div class="col-md-4 mb-4 laboratoire-card" data-specialite="{{ laboratoire.specialite }}" data-responsable="{{ laboratoire.responsable }}" data-adresse="{{ laboratoire.adresse }}">
                         <div class="card h-100 shadow-lg">
                             <img class="card-img-top" src="{{ asset('/front/img/laboratoire1.jpg') }}" alt="Laboratoire">
                             <div class="card-body">
@@ -62,19 +92,63 @@
     </div>
 </div>
 
-<!-- Script pour la recherche dynamique -->
+<!-- Script pour la recherche, les filtres dynamiques et le tri -->
 <script>
-    document.getElementById("searchInput").addEventListener("input", function() {
-        let filter = this.value.toLowerCase();
+    document.getElementById("searchInput").addEventListener("input", filterLaboratoires);
+    document.getElementById("filterSpecialite").addEventListener("change", filterLaboratoires);
+    document.getElementById("filterResponsable").addEventListener("input", filterLaboratoires);
+    document.getElementById("filterAdresse").addEventListener("input", filterLaboratoires);
+    document.getElementById("sortSelect").addEventListener("change", sortLaboratoires);
+
+    function filterLaboratoires() {
+        let searchInput = document.getElementById("searchInput").value.toLowerCase();
+        let filterSpecialite = document.getElementById("filterSpecialite").value.toLowerCase();
+        let filterResponsable = document.getElementById("filterResponsable").value.toLowerCase();
+        let filterAdresse = document.getElementById("filterAdresse").value.toLowerCase();
+        
         let cards = document.querySelectorAll(".laboratoire-card");
 
         cards.forEach(card => {
             let name = card.querySelector(".laboratoire-nom").textContent.toLowerCase();
             let adresse = card.querySelector(".laboratoire-adresse").textContent.toLowerCase();
+            let specialite = card.getAttribute("data-specialite").toLowerCase();
+            let responsable = card.getAttribute("data-responsable").toLowerCase();
+            let cardAdresse = card.getAttribute("data-adresse").toLowerCase();
 
-            card.style.display = (name.includes(filter) || adresse.includes(filter)) ? "block" : "none";
+            let matchesSearch = name.includes(searchInput) || adresse.includes(searchInput);
+            let matchesSpecialite = specialite.includes(filterSpecialite);
+            let matchesResponsable = responsable.includes(filterResponsable);
+            let matchesAdresse = cardAdresse.includes(filterAdresse);
+
+            if (matchesSearch && matchesSpecialite && matchesResponsable && matchesAdresse) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
         });
-    });
+    }
+
+    function sortLaboratoires() {
+        let sortOrder = document.getElementById("sortSelect").value;
+        let cards = Array.from(document.querySelectorAll(".laboratoire-card"));
+        
+        cards.sort((a, b) => {
+            let nameA = a.querySelector(".laboratoire-nom").textContent.toLowerCase();
+            let nameB = b.querySelector(".laboratoire-nom").textContent.toLowerCase();
+
+            if (sortOrder === "asc") {
+                return nameA.localeCompare(nameB);
+            } else if (sortOrder === "desc") {
+                return nameB.localeCompare(nameA);
+            }
+            return 0;
+        });
+
+        let parent = document.getElementById("laboratoireList");
+        cards.forEach(card => {
+            parent.appendChild(card);
+        });
+    }
 </script>
 
 {% endblock %}

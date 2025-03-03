@@ -22,12 +22,8 @@ class AnalyseType extends AbstractType
             ->add('date_mise_a_jour')
             ->add('laboratoire')
             ->add('rendezVous')
-            ->add('rendezVouses')
-            ->add('save',SubmitType::class,[
-                'attr' =>[
-                    'class'=>'btn btn-primary mt-2'
-                ]
-            ])
+            
+           
         ;
     }
 

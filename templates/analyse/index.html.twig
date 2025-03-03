@@ -10,35 +10,51 @@
         <div class="container mt-5">
             <h1 class="text-center mb-4 text-primary">🔬 Liste des Analyses Médicales</h1>
 
-            <div class="row">
+           <!-- Recherche, tri et filtrage -->
+<div class="d-flex justify-content-between mb-4">
+    <!-- Champ de recherche -->
+    <div class="input-group w-50">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input type="text" id="searchInput" class="form-control" placeholder="Rechercher par nom" onkeyup="filterAnalyses()" aria-label="Recherche par nom">
+    </div>
+    
+    <!-- Filtrage par type -->
+    <select id="typeFilter" class="form-select w-25" onchange="filterAnalyses()">
+        <option value="">Filtrer par Type</option>
+        <option value="IRM">IRM</option>
+        <option value="ORM">ORM</option>
+        <option value="Scanner">Scanner</option>
+    </select>
+    
+    <!-- Tri par date -->
+    <select id="sortBy" class="form-select w-25" onchange="sortAnalyses()">
+        <option value="asc">Trier par Date (Ascendant)</option>
+        <option value="desc">Trier par Date (Descendant)</option>
+    </select>
+</div>
+
+
+            <div class="row" id="analysesList">
                 {% for analyse in analyses %}
-                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4 analyse-item" data-type="{{ analyse.typeAnalyse }}" data-date="{{ analyse.dateCreation|date('Y-m-d') }}">
                         <div class="card shadow-lg border-0 rounded-4 h-100" style="background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-primary fw-bold text-center">{{ analyse.nom }}</h5>
                                 <hr>
-
-                                <!-- Informations sur l'analyse -->
                                 <p><strong><i class="fas fa-flask"></i> Type d'analyse :</strong> {{ analyse.typeAnalyse }}</p>
                                 <p><strong><i class="fas fa-info-circle"></i> Description :</strong> {{ analyse.description }}</p>
                                 <p><strong><i class="fas fa-tag"></i> Prix :</strong> <span class="text-success fw-bold">{{ analyse.prix }} TND</span></p>
-
-                                <!-- Statut -->
                                 <p><strong><i class="fas fa-check-circle"></i> Statut :</strong> 
                                     <span class="badge {% if analyse.statut == 'Disponible' %}bg-success{% else %}bg-danger{% endif %}">
                                         {{ analyse.statut }}
                                     </span>
                                 </p>
-
-                                <!-- Dates de création et mise à jour -->
                                 <p><strong><i class="far fa-calendar-alt"></i> Date de création :</strong> 
                                     {{ analyse.dateCreation ? analyse.dateCreation|date('d/m/Y H:i') : 'Non définie' }}
                                 </p>
                                 <p><strong><i class="far fa-clock"></i> Dernière mise à jour :</strong> 
                                     {{ analyse.dateMiseAJour ? analyse.dateMiseAJour|date('d/m/Y H:i') : 'Non définie' }}
                                 </p>
-
-                                <!-- Boutons Voir et Modifier -->
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ path('app_analyse_show', {'id': analyse.id}) }}" class="btn btn-outline-info btn-sm">
                                         <i class="fas fa-eye"></i> Voir
@@ -78,6 +94,49 @@
         overflow: hidden;
     }
 
+    .card:hover {
+        transform: translateY(-5px);
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-outline-info:hover, .btn-outline-warning:hover {
+        background-color: #f1f1f1;
+        border-color: #007bff;
+    }
+
+    .badge.bg-success {
+        background-color: #28a745;
+    }
+
+    .badge.bg-danger {
+        background-color: #dc3545;
+    }
+
+    .background-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(0, 123, 255, 0.2), rgba(40, 167, 69, 0.2));
+        background-size: 200% 200%;
+        animation: gradientAnimation 6s ease infinite;
+        z-index: -1;
+    }
+
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 200% 200%;
+        }
+        50% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 200% 200%;
+        }
+    }
+
     /* Animation des molécules et éléments d'analyse */
     .molecule {
         position: absolute;
@@ -108,51 +167,85 @@
         }
     }
 
-    /* Définition du style pour les cartes et boutons */
-    .card:hover {
-        transform: translateY(-5px);
-        transition: 0.3s ease-in-out;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    .card-body {
+        padding: 20px;
     }
 
-    .btn-outline-info:hover, .btn-outline-warning:hover {
-        background-color: #f1f1f1;
-        border-color: #007bff;
+    .card-title {
+        font-size: 1.2rem;
     }
 
-    .badge.bg-success {
-        background-color: #28a745;
+    .container {
+        margin-top: 20px;
     }
 
-    .badge.bg-danger {
-        background-color: #dc3545;
+    /* Style pour les boutons */
+    .btn-outline-info, .btn-outline-warning {
+        font-size: 0.9rem;
+        border-radius: 20px;
     }
 
-    /* Animation de fond dynamique */
-    .background-animation {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, rgba(0, 123, 255, 0.2), rgba(40, 167, 69, 0.2));
-        background-size: 200% 200%;
-        animation: gradientAnimation 6s ease infinite;
-        z-index: -1;
-    }
-
-    @keyframes gradientAnimation {
-        0% {
-            background-position: 200% 200%;
+    /* Responsive : Adaptation pour petits écrans */
+    @media (max-width: 767px) {
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
         }
-        50% {
-            background-position: 0 0;
+
+        .form-control {
+            width: 100%;
         }
-        100% {
-            background-position: 200% 200%;
+
+        .d-flex {
+            flex-direction: column;
+        }
+
+        .row {
+            margin-bottom: 20px;
         }
     }
 </style>
+
+<!-- Scripts JavaScript -->
+<script>
+    // Fonction pour filtrer les analyses
+    function filterAnalyses() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const typeFilter = document.getElementById('typeFilter').value;
+        const analyses = document.querySelectorAll('.analyse-item');
+        
+        analyses.forEach(analysis => {
+            const name = analysis.querySelector('.card-title').textContent.toLowerCase();
+            const type = analysis.getAttribute('data-type').toLowerCase();
+            const matchesSearch = name.includes(searchInput);
+            const matchesType = typeFilter ? type === typeFilter.toLowerCase() : true;
+
+            if (matchesSearch && matchesType) {
+                analysis.style.display = 'block';
+            } else {
+                analysis.style.display = 'none';
+            }
+        });
+    }
+
+    // Fonction pour trier les analyses par date
+    function sortAnalyses() {
+        const sortBy = document.getElementById('sortBy').value;
+        const analysesList = document.getElementById('analysesList');
+        const analyses = Array.from(analysesList.getElementsByClassName('analyse-item'));
+        
+        analyses.sort((a, b) => {
+            const dateA = new Date(a.getAttribute('data-date'));
+            const dateB = new Date(b.getAttribute('data-date'));
+            return sortBy === 'asc' ? dateA - dateB : dateB - dateA;
+        });
+
+        analysesList.innerHTML = '';
+        analyses.forEach(analysis => analysesList.appendChild(analysis));
+    }
+</script>
+
+
 
 <!-- Ajout d'éléments animés pour représenter les molécules -->
 <div class="background-animation"></div>
@@ -160,5 +253,7 @@
 <div class="molecule" style="top: 30%; left: 50%; animation-duration: 15s;"></div>
 <div class="molecule" style="top: 60%; left: 30%; animation-duration: 20s;"></div>
 <div class="molecule" style="top: 70%; left: 80%; animation-duration: 25s;"></div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 
 {% endblock %}

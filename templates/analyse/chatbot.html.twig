@@ -1,0 +1,105 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Chatbot Médical -{% endblock %}
+
+
+{% block body %}
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Médical</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f7fc;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-box {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 80%;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            text-align: right;
+            margin-left: auto;
+        }
+        .bot-message {
+            background: #e9ecef;
+            color: black;
+        }
+        .chat-form input {
+            flex-grow: 1;
+            border-radius: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .chat-form button {
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+    </style>
+
+
+<!-- Hero Start -->
+
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+        <div class="container py-5">
+            <div class="row justify-content-start">
+                <div class="col-lg-8 text-center text-lg-start">
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To ElyssaCare</h5>
+                    <h1 class="display-1 text-white mb-md-4">Your Health,Our Priority
+                    </h1>
+                    <div class="pt-2">
+                        <a href="" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Find Doctor</a>
+                        <a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+   
+
+
+
+
+
+
+    <div class="container">
+        <div class="chat-container">
+            <h2 class="text-center mb-4"><i class="fa-solid fa-comments"></i> Chatbot Médical</h2>
+
+            <div class="chat-box">
+                {% if question %}
+                    <div class="message user-message"><strong>Vous :</strong> {{ question }}</div>
+                    <div class="message bot-message"><strong>Chatbot :</strong> {{ response }}</div>
+                {% else %}
+                    <p class="text-center text-muted">Posez une question pour commencer la discussion.</p>
+                {% endif %}
+            </div>
+
+            <form method="post" class="d-flex chat-form mt-3">
+                <input type="text" id="question" name="question" class="form-control" placeholder="Tapez votre question..." required>
+                <button type="submit" class="btn btn-primary ms-2"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -12,6 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Laboratoire;
 use App\Repository\LaboratoireRepository;
 
+use App\Service\NotificationService;
+
+
+
+
+
+
 #[Route('/rendez/vous')]
 class RendezVousController extends AbstractController
 {
@@ -85,24 +92,55 @@ class RendezVousController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_rendez_vous_delete', methods: ['POST'])]
-    public function delete(Request $request, RendezVous $rendezVou, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, RendezVous $rendezVou, EntityManagerInterface $entityManager, NotificationService $notificationService): Response
     {
+
+         
         if ($this->isCsrfTokenValid('delete'.$rendezVou->getId(), $request->request->get('_token'))) {
+            // Récupérer l'email du patient avant suppression
+        $patientEmail = $rendezVou->getPatientEmail();
+
+        // Envoyer un email d'annulation
+        $notificationService->sendEmailNotification(
+            $patientEmail,
+            'Annulation de votre rendez-vous ❌',
+            '<p>Bonjour,</p>
+             <p>Nous vous informons que votre rendez-vous prévu le <strong>' . $rendezVou->getDate()->format('d/m/Y') . '</strong> à <strong>' . $rendezVou->getHeure()->format('H:i') . '</strong> a été annulé.</p>
+             <p>Pour toute information, veuillez nous contacter.</p>'
+        );
+
             $entityManager->remove($rendezVou);
             $entityManager->flush();
-        }
+        } 
+
+        
 
         return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
     }
 
 
+    #[Route('/rendez-vous/accepter/{id}', name: 'app_rendez_vous_accepter')]
+public function accepterRendezVous(int $id, EntityManagerInterface $entityManager, NotificationService $notificationService): Response
+{
+    $rendezVous = $entityManager->getRepository(RendezVous::class)->find($id);
 
-    #[Route('/analyse', name: 'app_backanalyse', methods: ['GET'])]
-    #[ParamConverter('rendezVou', class: 'App\Entity\RendezVous')]
-    public function backanalyse(RendezVousRepository $rendezVousRepository): Response
-    {
-        return $this->render('analyse/backanalyse.html.twig', [
-            'rendez_vouses' => $rendezVousRepository->findAll(),
-        ]);
+    if (!$rendezVous) {
+        throw $this->createNotFoundException('Rendez-vous non trouvé');
     }
+
+    // Envoyer un email de confirmation
+    $notificationService->sendEmailNotification(
+        $rendezVous->getPatientEmail(),
+        'Votre rendez-vous est confirmé ✅',
+        '<p>Bonjour,</p>
+         <p>Votre rendez-vous est confirmé pour le <strong>' . $rendezVous->getDate()->format('d/m/Y') . '</strong> à <strong>' . $rendezVous->getHeure()->format('H:i') . '</strong>.</p>
+         <p>Merci de votre confiance !</p>'
+    );
+
+    return $this->redirectToRoute('app_rendez_vous_index');
+}
+
+
+
+    
 }

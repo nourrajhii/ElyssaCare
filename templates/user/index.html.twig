@@ -1,0 +1,88 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}User Index{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="mb-4">User Index</h1>
+
+        <!-- Search form with improved styling -->
+        <div class="mb-4 d-flex justify-content-between align-items-center">
+            <form method="get" class="d-flex w-50">
+                <div class="input-group">
+                    <input type="text" class="form-control rounded-0" name="search" value="{{ searchTerm }}" placeholder="Search by name...">
+                    <button type="submit" class="btn btn-primary rounded-0 ms-2">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+
+            <!-- Sort buttons with icons -->
+            <div class="btn-group">
+                <a href="{{ path('app_user_index', {'search': searchTerm, 'sort': 'asc'}) }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-sort-alpha-down"></i> Ascending
+                </a>
+                <a href="{{ path('app_user_index', {'search': searchTerm, 'sort': 'desc'}) }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-sort-alpha-up"></i> Descending
+                </a>
+            </div>
+        </div>
+
+        <!-- Table displaying users -->
+        <div class="card">
+            <div class="card-header">
+                <strong>List of Users</strong>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>𝙄𝘿</th>
+                            <th>𝑵𝒂𝒎𝒆</th>
+                            <th>𝑬𝒎𝒂𝒊𝒍</th>
+                            <th>𝑹𝒐𝒍𝒆𝒔</th>
+                            
+                            <th class="text-center">𝑨𝒄𝒕𝒊𝒐𝒏𝒔</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                            
+                            <td class="text-center">
+                                <a href="{{ path('app_user_profile', {'id': user.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <form action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST" style="display:inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">No users found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Button to create new user -->
+        <div class="mt-4">
+            <a href="{{ path('app_user_new') }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> Create New User
+            </a>
+        </div>
+    </div>
+{% endblock %}

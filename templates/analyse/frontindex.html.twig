@@ -2,8 +2,6 @@
 
 {% block title %}home -{% endblock %}
 
-
-
 {% block body %}
 
 <style>
@@ -81,7 +79,11 @@
 
         <td>
     
+    
     <a href="{{ path('app_analyse_pdf', {'id': analyse.id}) }}" class="btn btn-danger">📄 Télécharger PDF</a>
+   
+
+
 </td>
 
         {% else %}
@@ -99,5 +101,7 @@
     </div>
     </div>
     </div>
+    
+
 {% endblock %}
 

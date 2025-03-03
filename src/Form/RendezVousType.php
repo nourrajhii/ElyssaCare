@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Laboratoire;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class RendezVousType extends AbstractType
@@ -21,18 +22,17 @@ class RendezVousType extends AbstractType
             ->add('patient_nom')
             ->add('patient_email')
             ->add('patient_telephone')
-            ->add('date')
+            ->add('date', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => true, // Essaye en mettant true
+                'attr' => ['class' => 'date-picker']
+            ])
+            
             ->add('heure')
             ->add('etat')
             
-            ->add('laboratoire', EntityType::class, [
-                'class' => Laboratoire::class,
-                'choice_label' => 'nomLaboratoire',
-                'placeholder' => 'Sélectionnez un laboratoire',
-                'data' => isset($options['laboratoire']) ? $options['laboratoire'] : null, // Valeur par défaut null si non défini
-                'disabled' => isset($options['laboratoire']) && $options['laboratoire'] !== null, // Désactiver si laboratoire est défini
-            ])
-            ->add('analyse')
+            ->add('laboratoire')
+            
             
         ;
     }

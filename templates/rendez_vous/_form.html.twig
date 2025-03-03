@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             {{ form_label(form.date, null, {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_widget(form.date, {'attr': {'class': 'form-control', 'id': 'rendezvous_date'}}) }}
                             <div class="text-danger">
                                   {{ form_errors(form.date) }}
                                 </div>
@@ -96,6 +96,23 @@
                     field.classList.add('is-invalid');
                 }
             });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Initialisation du calendrier avec les restrictions
+        $('#rendezvous_date').datepicker({
+            dateFormat: 'yy-mm-dd',  // Format de la date
+            minDate: 0,  // Ne permet pas de sélectionner une date passée
+            beforeShowDay: function(date) {
+                var day = date.getDay();  // 0 = dimanche, 6 = samedi
+                // Désactiver les samedis (6) et dimanches (0)
+                if (day == 0 || day == 6) {
+                    return [false];  // Désactiver le jour
+                }
+                return [true];  // Activer les autres jours
+            }
         });
     });
 </script>

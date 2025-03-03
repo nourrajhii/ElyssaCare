@@ -1,0 +1,63 @@
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    
+    <!-- Nom avec icône -->
+    <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="bi bi-person"></i></span>
+        {{ form_widget(form.name, { 'attr': { 'class': 'form-control form-control-sm' } }) }}
+        {{ form_errors(form.name) }}
+    </div>
+
+    <!-- Email avec icône -->
+    <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="bi bi-envelope-at"></i></span>
+        {{ form_widget(form.email, { 'attr': { 'class': 'form-control form-control-sm' } }) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <!-- Mot de passe avec icône -->
+    <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+        {{ form_widget(form.password, { 'attr': { 'class': 'form-control form-control-sm' } }) }}
+        {{ form_errors(form.password) }}
+    </div>
+
+    <!-- Rôle avec icône avant le bouton -->
+    <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="bi bi-person-lock"></i></span>
+        {{ form_widget(form.roles, { 'attr': { 'class': 'form-control form-control-sm' } }) }}
+        {{ form_errors(form.roles) }}
+    </div>
+      <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+    <!-- Bouton Submit -->
+    <div class="mb-3">
+        {{ form_widget(form.submit, { 'attr': { 'class': 'btn btn-custom w-100' } }) }}
+    </div>
+
+  
+    {{ form_end(form) }}
+    
+    
+</form>
+<style>
+    .btn-custom {
+        background: linear-gradient(135deg, #ff77b6, #ff508f);
+        color: white;
+        font-weight: bold;
+        padding: 12px;
+        border: none;
+        border-radius: 50px;
+        transition: background 0.3s ease, transform 0.2s ease;
+        font-size: 18px;
+    }
+
+    .btn-custom:hover {
+        background: linear-gradient(135deg, #ff508f, #ff77b6);
+        transform: scale(1.05);
+    }
+
+    .btn-custom:focus, .btn-custom:active {
+        outline: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
